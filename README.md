@@ -1,3 +1,10 @@
 # Visualization
 
-De hub voor het vak Visualization aan de Technische Universiteit Eindhoven van groep 34 (2020).
+
+The hub for the Visualization course (TU Eindhoven) (JBI100 34 - 2020/2021).
+
+How to use the program:
+1. Download the files
+2. Put the files in the same working directory
+3. Open your browser
+4. Run main.py
