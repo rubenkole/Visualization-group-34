@@ -1,77 +1,39 @@
-from bokeh.models.widgets import Button
-from bokeh.io import curdoc
-
-from random import random
-import pandas as pd
-from bokeh.layouts import column
-from bokeh.plotting import figure, curdoc
-from bokeh.models import RadioButtonGroup, Select
+from bokeh.models import Select
 from bokeh.layouts import column
 from bokeh.io import curdoc
-from bokeh.models import Button
 from bokeh.models.widgets import Div
 from bokeh.layouts import layout
-
+from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource
-from bokeh.plotting import figure, output_file, show
-from bokeh.models import ColumnDataSource
-from bokeh.models.tools import HoverTool
 import pandas as pd
-from bokeh.plotting import figure, output_file, show
-from bokeh.models import ColumnDataSource
-from bokeh.models.tools import HoverTool
-import numpy as np
-from bokeh.io import output_notebook
-from bokeh.palettes import Spectral5
-from bokeh.transform import factor_cmap
-import pandas as pd
-
-from bokeh.io import show
-from bokeh.models import CustomJS, RadioButtonGroup
-import os
-import sys
+from os.path import dirname, join
 
 
 df = pd.read_excel("dataset/Quantitative.xlsx")
-cols = df.columns.to_list()
-cols = cols[1:]
+quantitative_columns = df.columns.to_list()
+edited_quantitative_columns = quantitative_columns[1:]
+
 
 def Converter(cols):
     l = []
     for n, j in enumerate(cols):
         l.append(cols[n])
         l.append(j)
-    outRes = dict((l[i], l[i]) if i  < len(l) else (l[i], '') for i in range(len(l)))
+    outRes = dict((l[i], l[i]) if i < len(l) else (l[i], '') for i in range(len(l)))
     return outRes
 
 
-cols = Converter(cols)
-
-source = ColumnDataSource(df)
+cols = Converter(edited_quantitative_columns)
 
 
 source = ColumnDataSource(data=dict(x=[], y=[]))
 
-
-
-
 p = figure(plot_height=600, plot_width=700, title="", toolbar_location="right", sizing_mode="scale_both")
-p.circle(x="x", y="y",source = source,size = 7,color = "blue")
-
-def dataset():
-    if radio_button_group.active == 0:
-
-        print("Categorical")
-        os.system("bokeh serve sagequantile.py --show --port 5007")
-    elif radio_button_group.active == 1:
-
-        print("Quantitative")
-
-    else:
-        print("Age quantile")
+p.circle(x="x", y="y", source=source, size=7, color="blue")
 
 
 def update():
+    global title_name
     df = pd.read_excel("dataset/Quantitative.xlsx")
     x_name = cols[x_axis.value]
     y_name = cols[y_axis.value]
@@ -85,20 +47,25 @@ def update():
     )
 
 
-x_axis = Select(title="X-axis",options=sorted(cols.keys()),value="Serum Glucose")
-y_axis = Select(title="Y-axis",options=sorted(cols.keys()),value="Hemoglobin")
-radio_button_group = RadioButtonGroup(labels=["Categorical","Quantitative","Age Quantile"],active=1)
-radio_button_group.on_change('active',lambda attr, old, new: dataset())
+
+
+
+x_axis = Select(title="X-axis", options=sorted(cols.keys()), value="Serum Glucose")
+y_axis = Select(title="Y-axis", options=sorted(cols.keys()), value="Hemoglobin")
 
 controls = [x_axis, y_axis]
 for control in controls:
     control.on_change('value', lambda attr, old, new: update())
 
-heading = Div(text = "<b>test!</b>", style={'font-size': '200%', 'color': 'blue','text-align':'center'})
-
+heading = Div(text=open(join(dirname(__file__), "heading.html")).read(), sizing_mode="stretch_width")
 
 update()
-dataset()
 
-layout = layout(heading, column(radio_button_group,x_axis,y_axis),p)
+inputs = column(*controls, width=320, height=1000)
+inputs.sizing_mode = "fixed"
+
+layout = layout([
+    [heading],
+    [inputs, p],
+])
 curdoc().add_root(layout)
