@@ -37,6 +37,9 @@ if __name__ == '__main__':
     # ppc.create_categorical_xlsx(df)
 
 
+
     os.system("bokeh serve app_dir\scatter.py app_dir\sagequantile.py app_dir")
+    #os.system("bokeh serve testing.py --show")
+
 
 

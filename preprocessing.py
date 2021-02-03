@@ -60,6 +60,8 @@ def create_quantitative_xlsx(data_frame):
     return_list = list(
         set(cols) - set(num_cols))  # return_list is the list of columns with the ones with numerical data
 
+    # The drop function works in that it removes a given list.
+    # Exemption list is a list of exemptions that will be added to the list of things that would be removed
     exemption_list = ["Patient age quantile", "Patient addmited to regular ward (1=yes, 0=no)",
                       "Patient addmited to semi-intensive unit (1=yes, 0=no)",
                       "Patient addmited to intensive care unit (1=yes, 0=no)"]
@@ -77,16 +79,24 @@ def create_categorical_xlsx(data_frame):
     df = drop_empty(data_frame)
 
     num_cols = list(df._get_numeric_data().columns)
+
+    #The drop function works in that it removes a given list.
+    #Exemption list is a list of exemptions that will be removed from the list of things that would be removed
     exemption_list = ["Patient age quantile", "Patient addmited to regular ward (1=yes, 0=no)",
                       "Patient addmited to semi-intensive unit (1=yes, 0=no)",
                       "Patient addmited to intensive care unit (1=yes, 0=no)"]
 
     for i in exemption_list:
         num_cols.remove(i)
+
     # In case you consider pH and Leukocytes to be Quantitative uncomment the following 2 lines:
     # exemption_list = ['Urine - pH','Urine - Leukocytes']
     # num_cols += exemption_list
 
+    #This column however needs to be removed
+    num_cols += ["Patient ID"]
+
+    #Drop the columns as specified in num_cols
     categorical_set = df.drop(num_cols, axis=1)
     categorical_set.to_excel("dataset/Categorical.xlsx")
 
@@ -94,5 +104,7 @@ def create_categorical_xlsx(data_frame):
 if __name__ == '__main__':
     af = pd.read_excel("dataset/dataset.xlsx")
 
-    create_quantitative_xlsx(af)
-    create_categorical_xlsx(af)
+    df = drop_empty(af)
+    df.to_excel("dataset/improved.xlsx")
+    # create_quantitative_xlsx(af)
+    # create_categorical_xlsx(af)
