@@ -1,35 +1,12 @@
-from bokeh.models.widgets import Button
-from bokeh.io import curdoc
 
-from random import random
-import pandas as pd
-from bokeh.layouts import column
-from bokeh.plotting import figure, curdoc
-from bokeh.models import RadioButtonGroup, Select
+from bokeh.models import Select, FactorRange
 from bokeh.layouts import column
 from bokeh.io import curdoc
-from bokeh.models import Button
 from bokeh.models.widgets import Div
 from bokeh.layouts import layout
+from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource
-from bokeh.plotting import figure, output_file, show
-from bokeh.models import ColumnDataSource
-from bokeh.models.tools import HoverTool
 import pandas as pd
-from bokeh.plotting import figure, output_file, show
-from bokeh.models import ColumnDataSource
-from bokeh.models.tools import HoverTool
-import numpy as np
-from bokeh.io import output_notebook
-from bokeh.palettes import Spectral5
-from bokeh.transform import factor_cmap
-import pandas as pd
-import webbrowser
-
-from bokeh.io import show
-from bokeh.models import CustomJS, RadioButtonGroup, FactorRange
-import os
-import sys
 from os.path import dirname, join
 
 df = pd.read_excel("dataset/Categorical.xlsx")

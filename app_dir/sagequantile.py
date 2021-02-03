@@ -33,7 +33,9 @@ from bokeh.models.tools import HoverTool
 
 
 af = pd.read_excel("dataset/agequantile.xlsx")
+print(af)
 grouped = af.groupby('Unnamed: 0')['positive','negative'].sum()
+print(grouped)
 
 df  = ColumnDataSource(grouped)
 quantiles = df.data['Unnamed: 0'].tolist()
