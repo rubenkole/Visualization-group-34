@@ -8,8 +8,7 @@ from bokeh.palettes import Spectral3
 import webbrowser
 import numpy as np
 
-df = pd.read_excel("dataset/improved.xlsx")
-print(df)
+
 if __name__ == '__main__':
 
     #df = pd.read_excel("dataset/dataset.xlsx")
@@ -85,12 +84,31 @@ if __name__ == '__main__':
     # testing[0] = my_input
     # print(list(testing.values())[0])
 
+    # my_list = [1,2,3,4]
+    # jochem = dict(my_list)
+    # print(jochem)
 
-
-    webbrowser.open("http://localhost:5006/properboxplot")
+    webbrowser.open("http://localhost:5006/app_dir")
     os.system("bokeh serve app_dir/properboxplot.py app_dir\scatter.py app_dir\sagequantile.py app_dir")
 
+    #
+    #
+    # catList = ['negative','positive']
+    # for cat in catList:
+    #     catList.append(cat)
+    #     print(cat)
 
+
+ # jochem = pd.read_excel("dataset/Map1.xlsx",header=None)
+    # print(jochem.shape)
+    # data = [{'group':'negative','score': 1},
+    #         {'group':'positive','score': 1}]
+    #
+    # # Creates padas DataFrame by passing
+    # # Lists of dictionaries and row index.
+    # df = pd.DataFrame(data, index=['negative', 'positive'])
+    # jochem = df.to_string(index=False)
+    # print(jochem)
     # webbrowser.open("http://localhost:5006/boxplot")
     # os.system("bokeh serve app_dir/boxplot.py")
     # webbrowser.open("http://localhost:5006/properboxplot")
