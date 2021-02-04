@@ -25,10 +25,10 @@ df = pd.read_excel("dataset/improved.xlsx")
 
 
 # Counts the instances of a certain option and returns both the instances and the categories
-def counter(option):
+def counter(dataframe, option):
     """Counts the instances of a certain option and returns both the instances and the categories"""
     # Count the values of the option and convert it to a dictionary
-    my_dict = df[str(option)].value_counts().to_dict()
+    my_dict = dataframe[str(option)].value_counts().to_dict()
 
     # Get the keys from my_dict put them in a list and convert them to a string
     k = list(my_dict.keys())
@@ -61,7 +61,7 @@ def update():
     """Update function gets called everytime the select menu changes"""
 
     # Update the categories and the amount using the counter() function
-    categories, amount = counter(x_axis.value)
+    categories, amount = counter(df, x_axis.value)
 
     # Update the source dictionary to contain the current variable
     source.data = dict(
