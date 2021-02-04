@@ -37,17 +37,17 @@ source = ColumnDataSource(data=dict(cat=[], mean=[], q1=[], q3=[], upper=[], low
 
 p = figure(title='Title', x_range=source.data['cat'])
 
-p.vbar(source.data['cat'], 0.7, source.data['mean'], source.data['q3'], fill_color="#E08E79", line_color="black")
-p.vbar(source.data['cat'], 0.7, source.data['q1'], source.data['mean'], fill_color="#3B8686", line_color="black")
+p.vbar('cat', 0.7, 'mean', 'q3', source = source, fill_color="#E08E79", line_color="black")
+p.vbar('cat', 0.7, 'q1', 'mean', source = source, fill_color="#3B8686", line_color="black")
 
-p.segment(source.data['cat'], source.data['upper'], source.data['cat'], source.data['q3'], color="black")
-p.segment(source.data['cat'], source.data['lower'], source.data['cat'], source.data['q1'], color="black")
+p.segment('cat', 'upper', 'cat', 'q3', source = source, color="black")
+p.segment('cat', 'lower', 'cat', 'q1', source = source, color="black")
 
 
 
 # whiskers (almost-0 height rects simpler than segments)
-p.rect(source.data['cat'], source.data['lower'], 0.2, 0.01, color="black")
-p.rect(source.data['cat'], source.data['upper'], 0.2, 0.01, color="black")
+p.rect('cat', 'lower', 0.2, 0.01, source = source, color="black")
+p.rect('cat', 'upper', 0.2, 0.01, source= source, color="black")
 
 p.xgrid.grid_line_color = None
 
@@ -64,7 +64,7 @@ def update():
     lower = q1 - 1.5 * iqr
 
     source.data = dict(
-        cat=['negative','positive'],
+        cat=,
         mean=mean,
         q1=q1,
         q3=q3,
