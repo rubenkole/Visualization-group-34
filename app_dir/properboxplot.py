@@ -30,10 +30,25 @@ options = ['Hematocrit', 'Hemoglobin', 'Platelets', 'Mean platelet volume ', 'Re
 
 df = pd.read_excel("dataset/improved.xlsx")
 
+def counter(dataframe, option):
+    """Counts the instances of a certain option and returns both the instances and the categories"""
+    # Count the values of the option and convert it to a dictionary
+    my_dict = dataframe[str(option)].value_counts().to_dict()
+
+    # Get the keys from my_dict put them in a list and convert them to a string
+    k = list(my_dict.keys())
+    key = [str(element) for element in k]
+
+    # Get the values from my_dict put them in a list
+    value = list(my_dict.values())
+
+    return key, value
 
 
 # Create the ColumnDataSource for the plot
 source = ColumnDataSource(data=dict(cat=[], mean=[], q1=[], q3=[], upper=[], lower=[]))
+
+key,value = counter(df,'SARS-Cov-2 exam result')
 
 p = figure(title='Title', x_range=source.data['cat'])
 
@@ -50,6 +65,10 @@ p.rect('cat', 'lower', 0.2, 0.01, source = source, color="black")
 p.rect('cat', 'upper', 0.2, 0.01, source= source, color="black")
 
 p.xgrid.grid_line_color = None
+p.ygrid.grid_line_color = "white"
+p.grid.grid_line_width = 2
+p.xaxis.major_label_text_font_size="16px"
+
 
 def update():
     af = pd.DataFrame(dict(score=df[y_axis.value], group=df['SARS-Cov-2 exam result']))
@@ -63,8 +82,17 @@ def update():
     upper = q3 + 1.5 * iqr
     lower = q1 - 1.5 * iqr
 
+
+
+    data = [{'group': 'negative', 'score': 1},
+            {'group': 'positive', 'score': 1}]
+
+    drf = pd.DataFrame(data, index=['negative', 'positive'])
+    doesntwork = drf.to_string(index=False)
+
+
     source.data = dict(
-        cat=,
+        cat=doesntwork,
         mean=mean,
         q1=q1,
         q3=q3,
