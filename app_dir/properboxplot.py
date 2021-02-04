@@ -7,6 +7,7 @@ from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource
 import pandas as pd
 from os.path import dirname, join
+import numpy as np
 
 # All the options allowed in the drop down menu (deemed quantitative)
 options = ['Hematocrit', 'Hemoglobin', 'Platelets', 'Mean platelet volume ', 'Red blood Cells', 'Lymphocytes',
@@ -22,13 +23,14 @@ options = ['Hematocrit', 'Hemoglobin', 'Platelets', 'Mean platelet volume ', 'Re
            'HCO3 (venous blood gas analysis)', 'Rods #', 'Segmented', 'Promyelocytes',
            'Metamyelocytes', 'Myelocytes', 'Myeloblasts', 'Urine - Density', 'Urine - Red blood cells',
            'Relationship (Patient/Normal)', 'International normalized ratio (INR)', 'Lactic Dehydrogenase',
-           'Creatine phosphokinase\xa0(CPK)\xa0', 'Ferritin', 'Arterial Lactic Acid', 'Lipase dosage', 'Albumin',
+           'Creatine phosphokinase\xa0(CPK)\xa0', 'Ferritin', 'Arterial Lactic Acid', 'Lipase dosage',
            'Hb saturation (arterial blood gases)', 'pCO2 (arterial blood gas analysis)',
            'Base excess (arterial blood gas analysis)', 'pH (arterial blood gas analysis)',
            'Total CO2 (arterial blood gas analysis)', 'HCO3 (arterial blood gas analysis)',
            'pO2 (arterial blood gas analysis)', 'Arteiral Fio2', 'Phosphor', 'ctO2 (arterial blood gas analysis)']
 
 df = pd.read_excel("dataset/improved.xlsx")
+
 
 def counter(dataframe, option):
     """Counts the instances of a certain option and returns both the instances and the categories"""
@@ -46,28 +48,9 @@ def counter(dataframe, option):
 
 
 # Create the ColumnDataSource for the plot
+
+
 source = ColumnDataSource(data=dict(cat=[], mean=[], q1=[], q3=[], upper=[], lower=[]))
-
-key,value = counter(df,'SARS-Cov-2 exam result')
-
-p = figure(title='Title', x_range=source.data['cat'])
-
-p.vbar('cat', 0.7, 'mean', 'q3', source = source, fill_color="#E08E79", line_color="black")
-p.vbar('cat', 0.7, 'q1', 'mean', source = source, fill_color="#3B8686", line_color="black")
-
-p.segment('cat', 'upper', 'cat', 'q3', source = source, color="black")
-p.segment('cat', 'lower', 'cat', 'q1', source = source, color="black")
-
-
-
-# whiskers (almost-0 height rects simpler than segments)
-p.rect('cat', 'lower', 0.2, 0.01, source = source, color="black")
-p.rect('cat', 'upper', 0.2, 0.01, source= source, color="black")
-
-p.xgrid.grid_line_color = None
-p.ygrid.grid_line_color = "white"
-p.grid.grid_line_width = 2
-p.xaxis.major_label_text_font_size="16px"
 
 
 def update():
@@ -75,24 +58,24 @@ def update():
 
     groups = af.groupby('group')
 
-    q1 = groups.quantile(q=0.25)
-    mean = groups.quantile(q=0.5)
-    q3 = groups.quantile(q=0.75)
-    iqr = q3 - q1
-    upper = q3 + 1.5 * iqr
-    lower = q1 - 1.5 * iqr
-
-
+    q1 = list(groups.quantile(q=0.25).score)
+    mean = list(groups.quantile(q=0.5).score)
+    q3 = list(groups.quantile(q=0.75).score)
+    iqr = np.asarray(q3) - np.asarray(q1)
+    upper = list(q3 + 1.5 * iqr)
+    lower = list(q1 - 1.5 * iqr)
 
     data = [{'group': 'negative', 'score': 1},
             {'group': 'positive', 'score': 1}]
 
     drf = pd.DataFrame(data, index=['negative', 'positive'])
-    doesntwork = drf.to_string(index=False)
 
+    drf1 = drf.reset_index()
+    drf2 = drf1["group"]
+    drf2 = list(drf2)
 
     source.data = dict(
-        cat=doesntwork,
+        cat=drf2,
         mean=mean,
         q1=q1,
         q3=q3,
@@ -100,18 +83,63 @@ def update():
         lower=lower
     )
 
-
     p.title.text = "COVID-19 & " + y_axis.value
 
 
+af = pd.DataFrame(dict(score=df["Hemoglobin"], group=df['SARS-Cov-2 exam result']))
+
+groups = af.groupby('group')
+
+data = [{'group': 'negative', 'score': 1},
+        {'group': 'positive', 'score': 1}]
+
+drf = pd.DataFrame(data, index=['negative', 'positive'])
+drf1 = drf.reset_index()
+drf2 = drf1["group"]
+drf2 = list(drf2)
+
+q1 = list(groups.quantile(q=0.25).score)
+mean = list(groups.quantile(q=0.5).score)
+q3 = list(groups.quantile(q=0.75).score)
+iqr = np.asarray(q3) - np.asarray(q1)
+upper = list(q3 + 1.5 * iqr)
+lower = list(q1 - 1.5 * iqr)
+
+source.data = dict(
+    cat=drf2,
+    mean=mean,
+    q1=q1,
+    q3=q3,
+    upper=upper,
+    lower=lower
+)
+
+key, value = counter(df, 'SARS-Cov-2 exam result')
+
+p = figure(title='Title', x_range=source.data['cat'])
+
+p.segment('cat', 'upper', 'cat', 'q3', source=source, color="black")
+p.segment('cat', 'lower', 'cat', 'q1', source=source, color="black")
+
+p.vbar('cat', 0.7, 'mean', 'q3', source=source, fill_color="#E08E79", line_color="black")
+p.vbar('cat', 0.7, 'q1', 'mean', source=source, fill_color="#3B8686", line_color="black")
+
+# whiskers (almost-0 height rects simpler than segments)
+p.rect('cat', 'lower', 0.2, 0.01, source=source, color="black")
+p.rect('cat', 'upper', 0.2, 0.01, source=source, color="black")
+
+p.xgrid.grid_line_color = None
+p.ygrid.grid_line_color = "white"
+p.grid.grid_line_width = 2
+p.xaxis.major_label_text_font_size = "16px"
 
 y_axis = Select(title="Please select a feature: ", options=sorted(options), value="Hemoglobin")
 
 # When one of the select menus is changed. Run update()
-controls = [y_axis]
+# controls = y_axis
 
-for control in controls:
-    y_axis.on_change('value', lambda attr, old, new: update())
+# for control in controls:
+y_axis.on_change('value', lambda attr, old, new: update())
 
 # The heading is a html file can be found under app_dir/heading.html
 heading = Div(text=open(join(dirname(__file__), "heading.html")).read(), sizing_mode="stretch_width")
@@ -120,7 +148,7 @@ heading = Div(text=open(join(dirname(__file__), "heading.html")).read(), sizing_
 update()
 
 # The input column is made so it can fit on the side of the page
-inputs = column(*controls, width=320, height=1000)
+inputs = column(y_axis, width=320, height=1000)
 inputs.sizing_mode = "fixed"
 
 # Layout for the webpage

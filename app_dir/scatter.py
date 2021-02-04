@@ -1,7 +1,7 @@
 import pandas as pd
 from bokeh.io import curdoc
 from bokeh.layouts import column, layout
-from bokeh.models import Select, ColumnDataSource
+from bokeh.models import Select, ColumnDataSource,LassoSelectTool
 from bokeh.models.widgets import Div
 from bokeh.plotting import figure
 from os.path import dirname, join
@@ -47,8 +47,9 @@ TOOLTIPS = [
     ("Age quantile", "@age_quantile")
 ]
 
+
 # Create the body of the figure
-p = figure(plot_height=600, plot_width=700, title="", tooltips=TOOLTIPS, toolbar_location="right",
+p = figure(plot_height=600, plot_width=700, title="",tooltips=TOOLTIPS, toolbar_location="right",
            sizing_mode="scale_both")
 
 # Create both the circle groups. One for Positive and one for Negative

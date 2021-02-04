@@ -1,3 +1,5 @@
+from typing import List, Any, Union
+
 from bokeh.models import Select, FactorRange
 from bokeh.layouts import column
 from bokeh.io import curdoc
@@ -9,7 +11,7 @@ import pandas as pd
 from os.path import dirname, join
 
 # All the options allowed in the drop down menu (deemed categorical)
-options = ['Patient age quantile', 'SARS-Cov-2 exam result', 'Ward', 'Patient addmited to regular ward (1=yes, 0=no)',
+categorical_options = ['Patient age quantile', 'SARS-Cov-2 exam result', 'Ward', 'Patient addmited to regular ward (1=yes, 0=no)',
            'Patient addmited to semi-intensive unit (1=yes, 0=no)',
            'Patient addmited to intensive care unit (1=yes, 0=no)', 'Respiratory Syncytial Virus', 'Influenza A',
            'Influenza B', 'Parainfluenza 1', 'CoronavirusNL63', 'Rhinovirus/Enterovirus', 'Coronavirus HKU1',
@@ -77,7 +79,7 @@ def update():
 
 
 # Create a select menu to select what feature is to be displayed on the x-axis
-x_axis = Select(title="Please select a feature: ", options=sorted(options), value="Influenza A")
+x_axis = Select(title="Please select a feature: ", options=sorted(categorical_options), value="Influenza A")
 
 # When one of the select menus is changed. Run update()
 controls = [x_axis]
