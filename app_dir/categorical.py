@@ -6,6 +6,7 @@ from bokeh.palettes import Spectral11
 from bokeh.plotting import figure
 from os.path import dirname, join
 import pandas as pd
+import numpy as np
 from bokeh.models.tools import HoverTool
 
 # =================================================================================
@@ -119,10 +120,15 @@ def update():
     # Update the categories and the amount using the counter() function
     categories, amount = counter(df, x_axis.value)
 
+
     # Make a list with positive values in accordance to categories
     positive_list = []
-    for i in range(len(list(categories))):
-        positive_list.append(positive_grouped[i])
+
+    # Makes sure that the values for the hover tool are in the write spot
+    category_list = list(categories)
+
+    for element in (category_list):
+        positive_list.append(positive_grouped[element])
 
     # Update the source dictionary to contain the current variable
     source.data = dict(
