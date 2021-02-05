@@ -1,13 +1,12 @@
 from bokeh.io import curdoc
 from bokeh.layouts import column, layout, gridplot
 from bokeh.models import Select, FactorRange, ColumnDataSource
+from bokeh.models.tools import HoverTool
 from bokeh.models.widgets import Div
 from bokeh.palettes import Spectral11
 from bokeh.plotting import figure
 from os.path import dirname, join
 import pandas as pd
-import numpy as np
-from bokeh.models.tools import HoverTool
 
 # =================================================================================
 # Age Quantile Plot:
@@ -55,7 +54,7 @@ categorical_options = ['Ward', 'Respiratory Syncytial Virus',
                        'Influenza B, rapid test', 'Influenza A, rapid test', 'Strepto A', 'Urine - Esterase',
                        'Urine - Aspect',
                        'Urine - Hemoglobin', 'Urine - Bile pigments', 'Urine - Ketone Bodies', 'Urine - Urobilinogen',
-                       'Urine - Protein', 'Urine - Leukocytes', 'Urine - Crystals', 'Urine - Hyaline cylinders',
+                       'Urine - Protein', 'Urine - Crystals', 'Urine - Hyaline cylinders',
                        'Urine - Granular cylinders', 'Urine - Yeasts', 'Urine - Color']
 
 # Load in the improved dataset
@@ -117,7 +116,6 @@ def update():
     # Update the categories and the amount using the counter() function
     categories, amount = counter(df, x_axis.value)
 
-
     # Make a list with positive values in accordance to categories
     positive_list = []
 
@@ -145,6 +143,9 @@ def update():
 x_axis = Select(title="Please select a feature: ", options=sorted(categorical_options), value="Influenza A")
 
 # When one of the select menus is changed. Run update()
+# Code beyond this point (line 150-174) was taken and edited
+# from: Source: Van de Ven, B. (2020) Bokeh Movies Example. https://demo.bokeh.org/movies retrieved from:
+# https://github.com/bokeh/bokeh/tree/branch-2.3/examples/app/movies
 controls = [x_axis]
 
 for control in controls:

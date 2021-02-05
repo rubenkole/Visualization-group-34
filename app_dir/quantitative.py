@@ -198,12 +198,10 @@ p.segment('cat', 'lower', 'cat', 'q1', source=source, color="black")
 p.vbar('cat', 0.7, 'mean', 'q3', source=source, fill_color="#e40615", line_color="black")
 p.vbar('cat', 0.7, 'q1', 'mean', source=source, fill_color="#000000", line_color="black")
 
-# whiskers (almost-0 height rects simpler than segments)
 p.rect('cat', 'lower', 0.2, 0.01, source=source, color="black")
 p.rect('cat', 'upper', 0.2, 0.01, source=source, color="black")
 
 p.xaxis.axis_label = "Categories"
-
 
 p.xgrid.grid_line_color = None
 p.ygrid.grid_line_color = "white"
@@ -234,7 +232,6 @@ px.segment('cat', 'lower', 'cat', 'q1', source=x_source, color="black")
 px.vbar('cat', 0.7, 'mean', 'q3', source=x_source, fill_color="#e40615", line_color="black")
 px.vbar('cat', 0.7, 'q1', 'mean', source=x_source, fill_color="#000000", line_color="black")
 
-# whiskers (almost-0 height rects simpler than segments)
 px.rect('cat', 'lower', 0.2, 0.01, source=x_source, color="black")
 px.rect('cat', 'upper', 0.2, 0.01, source=x_source, color="black")
 
