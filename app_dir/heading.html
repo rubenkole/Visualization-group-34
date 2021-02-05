@@ -1,5 +1,6 @@
+<!--Source: Van de Ven, B. (2020) Bokeh Movies Example. https://demo.bokeh.org/movies retrieved from: https://github.com/bokeh/bokeh/tree/branch-2.3/examples/app/movies-->
 
- <style>body {
+<style>body {
     background-color: #137d85;
 }
 
@@ -10,22 +11,26 @@ h1 {
     font-size: 2.0em;
     text-transform: uppercase;
     text-align: center;
-    
+
 }
+
 a:link {
     font-weight: bold;
     text-decoration: none;
     color: #0d8ba1;
 }
+
 a:visited {
     font-weight: bold;
     text-decoration: none;
     color: #1a5952;
 }
+
 a:hover, a:focus, a:active {
     text-decoration: underline;
     color: #9685BA;
 }
+
 p {
     font: "helvetica";
     text-align: justify;
@@ -33,17 +38,17 @@ p {
     width: 80%;
     max-width: 800;
     color: white;
-	text-align: left;
+    text-align: left;
 }
 
 label {
-	color: white;
+    color: white;
 }
 
 button {
-	width: 150px;
-	height: 35px;
-	border-radius: 8px;
+    width: 150px;
+    height: 35px;
+    border-radius: 8px;
 }
 
 </style>
@@ -51,11 +56,17 @@ button {
 
 <h1>An interactive hospital visualisation </h2>
 
-<p>
-This dataset contains anonymised data from patients seen at the Hospital Israelita Albert Einstein, at Sao Paulo, Brazil,
-    and who had samples collected to perform the SARS-CoV-2 RT-PCR and additional laboratory tests during a visit to the hospital.
-</p>
-<p>
-    <a href="http://localhost:5006/main"><button type="button">Categorical</button></a>
-    <a href="http://localhost:5006/scatter"><button type="button">Quantitative</button></a>
-<br />
+    <p>
+        This dataset contains anonymised data from patients seen at the Hospital Israelita Albert Einstein, at Sao
+        Paulo, Brazil,
+        and who had samples collected to perform the SARS-CoV-2 RT-PCR and additional laboratory tests during a visit to
+        the hospital.
+    </p>
+    <p>
+        <a href="http://localhost:5006/categorical">
+            <button type="button">Categorical</button>
+        </a>
+        <a href="http://localhost:5006/quantitative">
+            <button type="button">Quantitative</button>
+        </a>
+        <br/>
