@@ -139,7 +139,9 @@ def update():
         lower=x_lower
     )
 
-    px.title.text = "COVID-19 &" + x_axis.value
+    px.title.text = "COVID-19 & " + x_axis.value
+
+
 # =============================================================================
 # Code for the boxplot of COVID-19 and the X-axis
 
@@ -191,8 +193,8 @@ p = figure(title='Title', x_range=source.data['cat'])
 p.segment('cat', 'upper', 'cat', 'q3', source=source, color="black")
 p.segment('cat', 'lower', 'cat', 'q1', source=source, color="black")
 
-p.vbar('cat', 0.7, 'mean', 'q3', source=source, fill_color="#E08E79", line_color="black")
-p.vbar('cat', 0.7, 'q1', 'mean', source=source, fill_color="#3B8686", line_color="black")
+p.vbar('cat', 0.7, 'mean', 'q3', source=source, fill_color="#e40615", line_color="black")
+p.vbar('cat', 0.7, 'q1', 'mean', source=source, fill_color="#000000", line_color="black")
 
 # whiskers (almost-0 height rects simpler than segments)
 p.rect('cat', 'lower', 0.2, 0.01, source=source, color="black")
@@ -224,8 +226,8 @@ px = figure(title='Title', x_range=x_source.data['cat'])
 px.segment('cat', 'upper', 'cat', 'q3', source=x_source, color="black")
 px.segment('cat', 'lower', 'cat', 'q1', source=x_source, color="black")
 
-px.vbar('cat', 0.7, 'mean', 'q3', source=x_source, fill_color="#E08E79", line_color="black")
-px.vbar('cat', 0.7, 'q1', 'mean', source=x_source, fill_color="#3B8686", line_color="black")
+px.vbar('cat', 0.7, 'mean', 'q3', source=x_source, fill_color="#e40615", line_color="black")
+px.vbar('cat', 0.7, 'q1', 'mean', source=x_source, fill_color="#000000", line_color="black")
 
 # whiskers (almost-0 height rects simpler than segments)
 px.rect('cat', 'lower', 0.2, 0.01, source=x_source, color="black")

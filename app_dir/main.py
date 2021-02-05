@@ -1,14 +1,50 @@
 from typing import List, Any, Union
-
+from bokeh.plotting import figure
+from bokeh.models import ColumnDataSource
+import pandas as pd
+from bokeh.palettes import Spectral11
 from bokeh.models import Select, FactorRange
 from bokeh.layouts import column
 from bokeh.io import curdoc
 from bokeh.models.widgets import Div
-from bokeh.layouts import layout
+from bokeh.layouts import layout, gridplot
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource
 import pandas as pd
 from os.path import dirname, join
+from bokeh.palettes import Spectral11
+
+# =================================================================================
+# Age Quantile Plot:
+
+age_dataset = pd.read_excel("dataset/agequantile.xlsx")
+
+age_grouped = age_dataset.groupby('Unnamed: 0')['positive', 'negative'].sum()
+
+age_dataframe = ColumnDataSource(age_grouped)
+quantiles = age_dataframe.data['Unnamed: 0'].tolist()
+
+string_quantiles = []
+for element in quantiles:
+    string_element = str(element)
+    string_quantiles.append(string_element)
+
+age_plot = figure(x_range=string_quantiles)
+
+age_plot.vbar_stack(stackers=['positive', 'negative'],
+                    x='Unnamed: 0', source=age_dataframe,
+                    legend_label=['Positive', 'Negative'],
+                    width=0.5, color=Spectral11[0:2])
+
+age_plot.title.text = 'Corona Tests Per Age Quantile'
+age_plot.legend.location = 'top_left'
+age_plot.xaxis.axis_label = 'Age Quantile'
+age_plot.xgrid.grid_line_color = None
+age_plot.yaxis.axis_label = 'Patients'
+
+
+# ==================================================================================
+# Feature bar chart
 
 # All the options allowed in the drop down menu (deemed categorical)
 categorical_options = ['Patient age quantile', 'SARS-Cov-2 exam result', 'Ward',
@@ -103,10 +139,12 @@ update()
 inputs = column(*controls, width=320, height=1000)
 inputs.sizing_mode = "fixed"
 
+grid = gridplot([[p, age_plot]])
+
 # Layout for the webpage
 layout = layout([
     [heading],
-    [inputs, p],
+    [inputs, grid],
 ])
 
 curdoc().add_root(layout)
