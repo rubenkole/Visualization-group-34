@@ -44,10 +44,7 @@ age_plot.yaxis.axis_label = 'Patients'
 # Feature bar chart
 
 # All the options allowed in the drop down menu (deemed categorical)
-categorical_options = ['Patient age quantile', 'SARS-Cov-2 exam result', 'Ward',
-                       'Patient addmited to regular ward (1=yes, 0=no)',
-                       'Patient addmited to semi-intensive unit (1=yes, 0=no)',
-                       'Patient addmited to intensive care unit (1=yes, 0=no)', 'Respiratory Syncytial Virus',
+categorical_options = ['Ward', 'Respiratory Syncytial Virus',
                        'Influenza A',
                        'Influenza B', 'Parainfluenza 1', 'CoronavirusNL63', 'Rhinovirus/Enterovirus',
                        'Coronavirus HKU1',
