@@ -1,16 +1,15 @@
 # Visualization
 
-
 The hub for the Visualization course (TU Eindhoven) (JBI100 34 - 2020/2021).
 
-Python Verison: v3.8.3
+Python Version: v3.8.3
 
 Requirments:
 - numpy
 - pandas
 - bokeh = v2.2.3
 
-Some problems may occur when not using the specified version of bokeh. Some functionalities used in code do not function anymore in future functions.
+Some problems may occur when not using the specified version of bokeh. Some functionalities used in code do not function anymore in future versions.
 
 # Instructions
 
