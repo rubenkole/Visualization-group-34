@@ -11,16 +11,22 @@ import pandas as pd
 from os.path import dirname, join
 
 # All the options allowed in the drop down menu (deemed categorical)
-categorical_options = ['Patient age quantile', 'SARS-Cov-2 exam result', 'Ward', 'Patient addmited to regular ward (1=yes, 0=no)',
-           'Patient addmited to semi-intensive unit (1=yes, 0=no)',
-           'Patient addmited to intensive care unit (1=yes, 0=no)', 'Respiratory Syncytial Virus', 'Influenza A',
-           'Influenza B', 'Parainfluenza 1', 'CoronavirusNL63', 'Rhinovirus/Enterovirus', 'Coronavirus HKU1',
-           'Parainfluenza 3', 'Chlamydophila pneumoniae', 'Adenovirus', 'Parainfluenza 4', 'Coronavirus229E',
-           'CoronavirusOC43', 'Inf A H1N1 2009', 'Bordetella pertussis', 'Metapneumovirus', 'Parainfluenza 2',
-           'Influenza B, rapid test', 'Influenza A, rapid test', 'Strepto A', 'Urine - Esterase', 'Urine - Aspect',
-           'Urine - Hemoglobin', 'Urine - Bile pigments', 'Urine - Ketone Bodies', 'Urine - Urobilinogen',
-           'Urine - Protein', 'Urine - Leukocytes', 'Urine - Crystals', 'Urine - Hyaline cylinders',
-           'Urine - Granular cylinders', 'Urine - Yeasts', 'Urine - Color']
+categorical_options = ['Patient age quantile', 'SARS-Cov-2 exam result', 'Ward',
+                       'Patient addmited to regular ward (1=yes, 0=no)',
+                       'Patient addmited to semi-intensive unit (1=yes, 0=no)',
+                       'Patient addmited to intensive care unit (1=yes, 0=no)', 'Respiratory Syncytial Virus',
+                       'Influenza A',
+                       'Influenza B', 'Parainfluenza 1', 'CoronavirusNL63', 'Rhinovirus/Enterovirus',
+                       'Coronavirus HKU1',
+                       'Parainfluenza 3', 'Chlamydophila pneumoniae', 'Adenovirus', 'Parainfluenza 4',
+                       'Coronavirus229E',
+                       'CoronavirusOC43', 'Inf A H1N1 2009', 'Bordetella pertussis', 'Metapneumovirus',
+                       'Parainfluenza 2',
+                       'Influenza B, rapid test', 'Influenza A, rapid test', 'Strepto A', 'Urine - Esterase',
+                       'Urine - Aspect',
+                       'Urine - Hemoglobin', 'Urine - Bile pigments', 'Urine - Ketone Bodies', 'Urine - Urobilinogen',
+                       'Urine - Protein', 'Urine - Leukocytes', 'Urine - Crystals', 'Urine - Hyaline cylinders',
+                       'Urine - Granular cylinders', 'Urine - Yeasts', 'Urine - Color']
 
 # Load in the improved dataset
 df = pd.read_excel("dataset/improved.xlsx")
