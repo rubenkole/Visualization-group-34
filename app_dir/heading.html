@@ -1,6 +1,8 @@
 <!--Source: Van de Ven, B. (2020) Bokeh Movies Example. https://demo.bokeh.org/movies retrieved from: https://github.com/bokeh/bokeh/tree/branch-2.3/examples/app/movies-->
 
-<style>body {
+<style>
+
+body {
     background-color: #137d85;
 }
 
@@ -36,9 +38,10 @@ p {
     text-align: justify;
     text-justify: inter-word;
     width: 80%;
-    max-width: 800;
-    color: white;
+	color: white;
     text-align: left;
+	max-width: 800;
+
 }
 
 label {
@@ -62,6 +65,12 @@ button {
         and who had samples collected to perform the SARS-CoV-2 RT-PCR and additional laboratory tests during a visit to
         the hospital.
     </p>
+	<p>
+		You can use the buttons below to change the type of data you wish to view. 
+		The drop-down menus can be used to select the exact data you want to be presented in the graphs. 
+		<br>
+		In case your colour vision is impaired, we have included the ability to select a different set of colours.
+	</p>
     <p>
         <a href="http://localhost:5006/categorical">
             <button type="button">Categorical</button>
@@ -69,5 +78,4 @@ button {
         <a href="http://localhost:5006/quantitative">
             <button type="button">Quantitative</button>
         </a>
-    </p>
-        <br/>
+	</p>
