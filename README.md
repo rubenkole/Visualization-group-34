@@ -19,7 +19,7 @@ How to use the program:
 
 Source:
 1. Thissen, G. (2020) Python Boxplot with Bokeh - Interactive Y-axis - plot not showing. http://stackoverflow.com retrieved from:
-# https://stackoverflow.com/questions/66037639/python-boxplot-with-bokeh-interactive-y-axis-plot-not-showing
+ https://stackoverflow.com/questions/66037639/python-boxplot-with-bokeh-interactive-y-axis-plot-not-showing
 
 2, Van de Ven, B. (2020) Bokeh Movies Example. https://demo.bokeh.org/movies retrieved from:
-# https://github.com/bokeh/bokeh/tree/branch-2.3/examples/app/movies
+ https://github.com/bokeh/bokeh/tree/branch-2.3/examples/app/movies
