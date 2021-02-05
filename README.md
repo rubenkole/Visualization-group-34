@@ -3,7 +3,9 @@
 
 The hub for the Visualization course (TU Eindhoven) (JBI100 34 - 2020/2021).
 
-requirments:
+Python Verison: v3.8.3
+
+Requirments:
 - numpy
 - pandas
 - bokeh 
