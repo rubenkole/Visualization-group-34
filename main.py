@@ -88,8 +88,8 @@ if __name__ == '__main__':
     # jochem = dict(my_list)
     # print(jochem)
 
-    webbrowser.open("http://localhost:5006/app_dir")
-    os.system("bokeh serve app_dir/properboxplot.py app_dir\scatter.py app_dir\sagequantile.py app_dir")
+    webbrowser.open("http://localhost:5006/main")
+    os.system("bokeh serve app_dir\scatter.py app_dir\sagequantile.py app_dir\main.py")
 
     #
     #
