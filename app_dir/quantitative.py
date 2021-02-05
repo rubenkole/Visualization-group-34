@@ -7,6 +7,10 @@ from bokeh.models.widgets import Div
 from bokeh.plotting import figure
 from os.path import dirname, join
 
+# I asked a question on stackoverflow, so the code can found on there additionally as well
+# Source: Thissen, G. (2020) Python Boxplot with Bokeh - Interactive Y-axis - plot not showing. http://stackoverflow.com retrieved from:
+# https://stackoverflow.com/questions/66037639/python-boxplot-with-bokeh-interactive-y-axis-plot-not-showing
+
 # All the options allowed in the drop down menu (deemed quantitative)
 options = ['Hematocrit', 'Hemoglobin', 'Platelets', 'Mean platelet volume ', 'Red blood Cells', 'Lymphocytes',
            'Mean corpuscular hemoglobin concentration\xa0(MCHC)', 'Leukocytes', 'Basophils',
